@@ -215,8 +215,8 @@ define('files-list', ['react', 'modal', 'number_format', 'moment', 'moment-timez
                     <table className="table table-striped table-files">
                         <colgroup>
                             <col />
-                            <col style={{width: "60px"}} />
-                            <col style={{width: "175px"}} />
+                            <col style={{width: "75px"}} />
+                            <col style={{width: "190px"}} />
                             {Config.User.role ? (<col style={{width: "60px"}} />) : null}
                         </colgroup>
                         <thead>
