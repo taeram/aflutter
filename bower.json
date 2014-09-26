@@ -1,0 +1,18 @@
+{
+  "name": "aflutter",
+  "dependencies": {
+    "angular": "https://github.com/angular/bower-angular.git#1.*",
+    "jquery-serialize-object": "1.0.0",
+    "phpjs": "https://github.com/kvz/phpjs.git",
+    "bootstrap": "3.*",
+    "font-awesome": "4.*",
+    "history.js": "1.8.*",
+    "jquery": "2.*",
+    "momentjs": "2.*",
+    "react": "0.11.*",
+    "requirejs": "2.*",
+    "routerjs": "https://github.com/haithembelhaj/RouterJs.git",
+    "underscore": "1.*",
+    "moment-timezone": "~0.2.2"
+  }
+}

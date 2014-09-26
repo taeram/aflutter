@@ -1,0 +1,102 @@
+<!doctype html>
+<head>
+    <title>{% block title %}{{ config.SITE_NAME }}{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon-%d.png' % config.CACHE_BUSTER) }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-%d.css' % config.CACHE_BUSTER) }}">
+    <script>
+        var Config = {
+            cache_buster: {{ config.CACHE_BUSTER }},
+            s3_bucket: '{{ config.AWS_S3_BUCKET }}',
+            User: {
+                role: '{{ current_user.role }}'
+            }
+        };
+    </script>
+    <script data-main="{{ url_for('static', filename='js/app-%d.js' % config.CACHE_BUSTER) }}" src="{{ url_for('static', filename='components/requirejs/require.js') }}"></script>
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <div class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ url_for('home') }}">{{ config.SITE_NAME }}</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    {% autoescape false %}
+                        {{ navbar_link('home', 'Home', icon='home') }}
+                            {{ navbar_link('files_upload', 'Upload Files', icon='plus', login_required=true) }}
+                            {{ navbar_link('user_change_password', 'Change your Password', icon='lock', login_required=true) }}
+                            {% if current_user.role == "admin" %}
+                                {{ navbar_link('user_list', 'Users', icon='users', login_required=true) }}
+                            {% endif %}
+                            {{ navbar_link('login', 'Login', icon='user', anonymous_required=true) }}
+                            {{ navbar_link('logout', 'Logout', icon='user', login_required=true) }}
+                    {% endautoescape %}
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li style="margin-top: 7px">
+                        <form class="form-inline" role="form" action="" method="get">
+                            <div class="input-group">
+                                <input type="search" class="form-control" name="q" id="search" placeholder="Search" value="{{q}}">
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn btn-default">
+                                        <i class="fa fa-search" style="padding: 0"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            <div class="container">
+                {% for category, message in messages %}
+                    <div class="alert {{ 'alert-%s' % category if category != 'message' else '' }}">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="container">
+        <div class="
+                col-xs-12 
+                col-md-8 col-md-offset-2
+                col-lg-6 col-lg-offset-3
+            ">
+            <h1>{{ self.title() }}</h1>
+            {% block body %}{% endblock %}
+        </div>
+    </div>
+
+    {% block javascript%}{% endblock %}
+
+    {% if config.GOOGLE_ANALYTICS_ID %}
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', '{{ config.GOOGLE_ANALYTICS_ID }}', 'auto');
+        ga('send', 'pageview');
+    </script>
+    {% endif %}
+</body>
+</html>

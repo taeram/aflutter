@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Files
+{% endblock %}
+
+{% block body %}
+<div id="app"></div>
+{% endblock %}
+
+{% block javascript %}
+    {% autoescape false %}
+        <script>
+            {% if json %}
+                var gallery_json = {{ json }};
+            {% endif %}
+        </script>
+    {% endautoescape %}
+{% endblock %}
