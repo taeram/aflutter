@@ -46,23 +46,32 @@ define('files-list', ['react', 'number_format', 'moment', 'moment-timezone'], fu
                 searchQuery = "&q=" + $('#search').val();
             }
 
-            $.get('/rest/file/?page=' + this.state.page + searchQuery, function (results) {
-                var data;
-                if (this.state.data.length > 0) {
-                    data = this.state.data;
-                    for (var i=0; i < results.length; i++) {
-                        data.push(results[i]);
+            $.ajax({
+                url: '/rest/file/?page=' + this.state.page + searchQuery,
+                success: function (results) {
+                    var data;
+                    if (this.state.data.length > 0) {
+                        data = this.state.data;
+                        for (var i=0; i < results.length; i++) {
+                            data.push(results[i]);
+                        }
+                    } else {
+                        data = results;
                     }
-                } else {
-                    data = results;
-                }
 
-                this.setState(({
-                    isLoading: false,
-                    data: data,
-                    hasMorePages: (results.length > 0),
-                }))
-            }.bind(this));
+                    this.setState(({
+                        isLoading: false,
+                        data: data,
+                        hasMorePages: (results.length > 0),
+                    }))
+                }.bind(this),
+                error: function () {
+                    this.setState(({
+                        isLoading: false,
+                        hasMorePages: false
+                    }))
+                }.bind(this)
+            });
         },
 
         triggerNextPage: function () {
