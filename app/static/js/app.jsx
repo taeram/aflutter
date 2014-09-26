@@ -22,6 +22,9 @@ require.config({
         "in_array": "components/phpjs/functions/array/in_array",
         "basename": "components/phpjs/functions/filesystem/basename",
 
+        // Helpers
+        "modal": "js/helpers/Modal",
+
         // App
         "files-list": "js/FilesList",
         "routes": "js/routes",
@@ -72,7 +75,8 @@ window.name = "NG_DEFER_BOOTSTRAP!";
 // Configure the application
 Config.App = {
     // The DOM id of the app container
-    elementId: 'app'
+    elementId: 'app',
+    modalElementId: 'app-modal'
 };
 
 require(['react', 'routes', 'jquery', 'underscore', 'bootstrap'], function (React,  router, $, _, bs) {

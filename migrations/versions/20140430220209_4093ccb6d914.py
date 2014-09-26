@@ -37,4 +37,4 @@ def upgrade():
 
 def downgrade():
     op.drop_table('user')
-    op.drop_table('gallery')
+    op.drop_table('file')

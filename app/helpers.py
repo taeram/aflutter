@@ -45,6 +45,6 @@ class AflutterStorage(object):
 aflutter_storage = AflutterStorage()
 
 def delete_file(folder, file):
-    """ Delete a photo from a gallery """
+    """ Delete a file """
     key = aflutter_storage.get_key("%s/%s" % (folder, file))
     key.delete()

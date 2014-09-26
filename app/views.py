@@ -285,8 +285,8 @@ def file_delete(file_id):
     # Delete the file from S3
     file.delete()
 
-    # Delete the gallery from the database
+    # Remove the file from the database
     db.session.delete(file)
     db.session.commit()
 
-    return app.response_class(response="[]", mimetype='application/json')
+    return app.response_class(response=json.dumps(file.to_object()), mimetype='application/json')

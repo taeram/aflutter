@@ -6,14 +6,5 @@ Files
 
 {% block body %}
 <div id="app"></div>
-{% endblock %}
-
-{% block javascript %}
-    {% autoescape false %}
-        <script>
-            {% if json %}
-                var gallery_json = {{ json }};
-            {% endif %}
-        </script>
-    {% endautoescape %}
+<div id="app-modal"></div>
 {% endblock %}

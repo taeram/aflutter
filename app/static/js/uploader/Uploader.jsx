@@ -251,6 +251,7 @@ define('uploader',
 
             $.post('/rest/file/', data, function (result) {
                 this.sending = false;
+                this.watch();
             }.bind(this));
         }
     };

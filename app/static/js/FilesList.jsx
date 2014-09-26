@@ -1,6 +1,6 @@
 /** @jsx React.DOM */
 
-define('files-list', ['react', 'number_format', 'moment', 'moment-timezone'], function(React, number_format, moment, moment_timezone) {
+define('files-list', ['react', 'modal', 'number_format', 'moment', 'moment-timezone'], function(React, Modal, number_format, moment, moment_timezone) {
 
     var FilesList = React.createClass({
         nextPageInterval: null,
@@ -74,6 +74,45 @@ define('files-list', ['react', 'number_format', 'moment', 'moment-timezone'], fu
             });
         },
 
+        deleteFile: function (file) {
+            $.ajax({
+                url: '/rest/file/' + file.id,
+                method: 'DELETE',
+                success: function (file) {
+                    for (var i=0; i < this.state.data.length; i++) {
+                        if (file.id == this.state.data[i].id) {
+                            delete this.state.data[i];
+                            break;
+                        }
+                    }
+
+                    // Remove the undefined elements from the array
+                    this.state.data = _.reject(this.state.data, function (file) { 
+                        return file === undefined;
+                    });
+
+                    this.setState(({
+                        data: this.state.data
+                    }))
+                }.bind(this)
+            });
+        },
+
+        showDeleteFileModal: function (file) {
+            // Unmount the existing component, if any
+            React.unmountComponentAtNode(document.getElementById(Config.App.modalElementId));
+
+            React.renderComponent(
+                <Modal
+                    title={"Delete " + file.name + "?"}
+                    content={"Are you sure you want to delete " + file.name + "?"}
+                    submitButtonText="Delete"
+                    submitButtonClass="btn-danger"
+                    onClickSubmit={this.deleteFile.bind(this, file)} />,
+                document.getElementById(Config.App.modalElementId)
+            );
+        },
+        
         triggerNextPage: function () {
             // Don't bother triggering if there are no more pages
             if (!this.state.hasMorePages) {
@@ -104,13 +143,25 @@ define('files-list', ['react', 'number_format', 'moment', 'moment-timezone'], fu
             var fileNodes;
             if (this.state.data.length > 0) {
                 fileNodes = this.state.data.map(function(file, i) {
+                    var deleteButtonNode;
+                    if (Config.User.role) {
+                        deleteButtonNode = (
+                            <td>
+                                <button className="btn btn-mini btn-danger btn-delete" onClick={this.deleteFile.bind(this, file)}>
+                                    <i className="fa fa-trash-o"></i>
+                                </button>
+                            </td>
+                        );
+                    }
+
                     return (
-                        <tr key={"file-" + i }>
+                        <tr key={"file-" + file.id }>
                             <td>
                                 <a href={this.url(file)} target="_blank">{file.name}</a>
                             </td>
                             <td>{ this.formatSize(file.size) }</td>
                             <td>{ moment(file.created, 'YYYY-MM-DD HH:mm:ss ZZ').format('lll') }</td>
+                            {deleteButtonNode}
                         </tr>
                     );
                 }.bind(this));
@@ -142,25 +193,38 @@ define('files-list', ['react', 'number_format', 'moment', 'moment-timezone'], fu
             var allFilesDisplayedNode;
             if (this.state.hasMorePages == false) {
                 var totalSize = _.reduce(this.state.data, function (memo, file) {
-                    console.log(file, file.size, memo)
                     return memo + file.size;
                 }, 0);
 
                 allFilesDisplayedNode = (
                     <div className="text-center" style={{ marginBottom: "20px"}} >
-                        <strong>{this.state.data.length } files</strong> totalling <strong>{ this.formatSize(totalSize) }</strong>
+                        <strong>{this.state.data.length} files</strong> totalling <strong>{ this.formatSize(totalSize) }</strong>
                     </div>
+                );
+            }
+
+            var tableHeaderButtonColumnNode;
+            if (Config.User.role) {
+                tableHeaderButtonColumnNode = (
+                    <th></th>
                 );
             }
 
             return (
                 <div>
-                    <table className="table table-striped">
+                    <table className="table table-striped table-files">
+                        <colgroup>
+                            <col />
+                            <col style={{width: "60px"}} />
+                            <col style={{width: "175px"}} />
+                            {Config.User.role ? (<col style={{width: "60px"}} />) : null}
+                        </colgroup>
                         <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Size</th>
                                 <th>Uploaded</th>
+                                {Config.User.role ? (<th></th>) : null}
                             </tr>
                         </thead>
                         <tbody>

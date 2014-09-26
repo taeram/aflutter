@@ -11,7 +11,7 @@
             cache_buster: {{ config.CACHE_BUSTER }},
             s3_bucket: '{{ config.AWS_S3_BUCKET }}',
             User: {
-                role: '{{ current_user.role }}'
+                role:{% if current_user.role %} '{{ current_user.role }}' {% else %} false {% endif %}
             }
         };
     </script>

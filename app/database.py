@@ -13,6 +13,7 @@ import random
 from sqlalchemy import func
 from sqlalchemy.orm.exc import NoResultFound
 from urllib import unquote
+from .helpers import delete_file
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
@@ -163,7 +164,7 @@ class File(db.Model):
         self.created = datetime.utcnow()
 
     def delete(self):
-        """ Delete a gallery and all its photos """
+        """ Delete a file """
         return delete_file(self.folder, self.name)
 
     def to_object(self):
