@@ -15,6 +15,14 @@ import sqlalchemy as sa
 
 
 def upgrade():
+    op.create_table('user',
+        sa.Column('id', sa.Integer(), nullable=False),
+        sa.Column('name', sa.Text(), nullable=False),
+        sa.Column('password', sa.Text(), nullable=False),
+        sa.Column('role', sa.Text(), nullable=False, server_default="user"),
+        sa.PrimaryKeyConstraint('id'),
+        sa.UniqueConstraint('name')
+    )
     op.create_table('file',
         sa.Column('id', sa.Integer(), nullable=False),
         sa.Column('name', sa.Text(), nullable=False),
@@ -24,14 +32,6 @@ def upgrade():
         sa.Column('created', sa.DateTime(timezone=True), nullable=True),
         sa.ForeignKeyConstraint(['owner_id'], [u'user.id'], ),
         sa.PrimaryKeyConstraint('id')
-    )
-    op.create_table('user',
-        sa.Column('id', sa.Integer(), nullable=False),
-        sa.Column('name', sa.Text(), nullable=False),
-        sa.Column('password', sa.Text(), nullable=False),
-        sa.Column('role', sa.Text(), nullable=False, server_default="user"),
-        sa.PrimaryKeyConstraint('id'),
-        sa.UniqueConstraint('name')
     )
 
 
