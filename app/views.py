@@ -32,6 +32,9 @@ from url_decode import urldecode
 
 @app.route('/', methods=['GET'])
 def home():
+    if not current_user.is_authenticated() and app.config['FILES_PROTECTED']:
+        return redirect(url_for('login'))
+
     """ Home page """
     if request.args.get('q'):
         search_query = request.args.get('q')
@@ -237,6 +240,9 @@ def files_upload():
 
 @app.route('/rest/file/', methods=['GET'])
 def file_index():
+    if not current_user.is_authenticated() and app.config['FILES_PROTECTED']:
+        return redirect(url_for('login'))
+
     """ List all files """
     if not request.args.get('page'):
         abort(500)
