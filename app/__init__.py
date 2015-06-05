@@ -28,6 +28,12 @@ def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.png', mimetype='image/png')
 
 
+@app.route('/robots.txt')
+def robots():
+    """ Return the robots.txt """
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'robots.txt')
+
+
 @app.route('/static/favicon-<int:cachebuster>.png', methods=['GET'])
 def handle_cachebusted_favicon(cachebuster):
     """ Handle a cachebusted favicon request """
