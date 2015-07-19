@@ -16,7 +16,7 @@ class Config(object):
     REMEMBER_COOKIE_DURATION = timedelta(days=30)
     SECRET_KEY = getenv('SECRET_KEY')
     SITE_NAME = getenv('SITE_NAME', 'Aflutter')
-    SQLALCHEMY_DATABASE_URI = getenv('DATABASE_URL')
+    SQLALCHEMY_DATABASE_URI = getenv('DATABASE_URL').replace('mysql2:', 'mysql:')
     SQLALCHEMY_ECHO = getenv('SQLALCHEMY_ECHO', False)
     FILES_PROTECTED = getenv('FILES_PROTECTED', False)
 
