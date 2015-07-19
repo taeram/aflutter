@@ -2,6 +2,9 @@
 
 define('files-list', ['react', 'modal', 'number_format', 'moment', 'moment-timezone'], function(React, Modal, number_format, moment, moment_timezone) {
 
+    // Make sure moment.js uses English
+    moment().locale('en');
+
     var FilesList = React.createClass({
         nextPageInterval: null,
 

@@ -79,10 +79,6 @@ Config.App = {
     modalElementId: 'app-modal'
 };
 
-define(["moment"], function (moment) {
-    moment().locale('en-US');
-});
-
 require(['react', 'routes', 'jquery', 'underscore', 'bootstrap'], function (React,  router, $, _, bs) {
     // Setup React
     React.initializeTouchEvents(true);
