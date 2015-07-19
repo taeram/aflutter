@@ -17,9 +17,9 @@ import sqlalchemy as sa
 def upgrade():
     op.create_table('user',
         sa.Column('id', sa.Integer(), nullable=False),
-        sa.Column('name', sa.Text(), nullable=False),
+        sa.Column('name', sa.types.VARCHAR(length=255), nullable=False),
         sa.Column('password', sa.Text(), nullable=False),
-        sa.Column('role', sa.Text(), nullable=False, server_default="user"),
+        sa.Column('role', sa.types.VARCHAR(length=255), nullable=False, server_default="user"),
         sa.PrimaryKeyConstraint('id'),
         sa.UniqueConstraint('name')
     )
