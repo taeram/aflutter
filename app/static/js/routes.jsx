@@ -6,7 +6,7 @@ define('routes', ['router'], function() {
     // Files List
     router.route('/', function() {
         require(['react', 'files-list'], function (React, FilesList) {
-            React.renderComponent(
+            React.render(
                 <FilesList url="/rest/file/" />,
                 document.getElementById(Config.App.elementId)
             );

@@ -9,7 +9,7 @@
     "history.js": "1.8.*",
     "jquery": "2.*",
     "momentjs": "2.*",
-    "react": "0.11.*",
+    "react": "0.13.*",
     "requirejs": "2.*",
     "routerjs": "https://github.com/haithembelhaj/RouterJs.git",
     "underscore": "1.*",

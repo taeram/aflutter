@@ -87,7 +87,7 @@ define('files-list', ['react', 'modal', 'number_format', 'moment', 'moment-timez
                     }
 
                     // Remove the undefined elements from the array
-                    this.state.data = _.reject(this.state.data, function (file) { 
+                    this.state.data = _.reject(this.state.data, function (file) {
                         return file === undefined;
                     });
 
@@ -102,7 +102,7 @@ define('files-list', ['react', 'modal', 'number_format', 'moment', 'moment-timez
             // Unmount the existing component, if any
             React.unmountComponentAtNode(document.getElementById(Config.App.modalElementId));
 
-            React.renderComponent(
+            React.render(
                 <Modal
                     title={"Delete " + file.name + "?"}
                     content={"Are you sure you want to delete " + file.name + "?"}
@@ -112,7 +112,7 @@ define('files-list', ['react', 'modal', 'number_format', 'moment', 'moment-timez
                 document.getElementById(Config.App.modalElementId)
             );
         },
-        
+
         triggerNextPage: function () {
             // Don't bother triggering if there are no more pages
             if (!this.state.hasMorePages) {
