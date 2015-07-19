@@ -2,10 +2,6 @@
   "name": "aflutter",
   "description": "An Amazon S3 backed file host",
   "version": "0.0.1",
-  "engines": {
-    "node": "0.10.x",
-    "npm": "1.2.x"
-  },
   "dependencies": {
     "bower": "1.3.*",
     "grunt": "*",
