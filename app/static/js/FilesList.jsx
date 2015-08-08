@@ -102,7 +102,7 @@ define('files-list', ['react', 'modal', 'number_format', 'moment', 'moment-timez
             // Unmount the existing component, if any
             React.unmountComponentAtNode(document.getElementById(Config.App.modalElementId));
 
-            React.renderComponent(
+            React.render(
                 <Modal
                     title={"Delete " + file.name + "?"}
                     content={"Are you sure you want to delete " + file.name + "?"}
