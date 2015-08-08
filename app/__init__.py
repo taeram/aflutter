@@ -6,6 +6,10 @@ from flask.ext.login import current_user
 import subprocess
 import re
 from react import jsx
+import locale
+
+# Set the locale
+locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
 app = Flask(__name__)
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
