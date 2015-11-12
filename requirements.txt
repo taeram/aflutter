@@ -7,7 +7,6 @@ Flask-SQLAlchemy==2.0
 Flask-WTF==0.12
 Flask==0.10.1
 MySQL-python==1.2.5
-psycopg2==2.6.1
 PyReact==0.5.2
 pytz==2015.4
 tornado==4.2.1
