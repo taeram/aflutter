@@ -11,7 +11,7 @@
     "momentjs": "2.*",
     "react": "0.13.*",
     "requirejs": "2.*",
-    "routerjs": "https://github.com/haithembelhaj/RouterJs.git",
+    "routerjs": "https://github.com/taeram/routerjs.git",
     "underscore": "1.*",
     "moment-timezone": "~0.2.2"
   }
