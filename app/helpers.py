@@ -4,6 +4,14 @@ from boto.sqs.message import RawMessage
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 import json
+from flask import send_from_directory
+import os
+
+
+@app.route('/.well-known/<path:filename>', methods=['GET'])
+def helper_letsencrypt(filename):
+    """ Return the letsencrypt file """
+    return send_from_directory(os.path.join(app.root_path, 'static/.well-known'), filename)
 
 
 class AflutterStorage(object):
