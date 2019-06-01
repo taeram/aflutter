@@ -3,7 +3,7 @@
   "dependencies": {
     "angular": "https://github.com/angular/bower-angular.git#1.*",
     "jquery-serialize-object": "1.0.0",
-    "phpjs": "https://github.com/kvz/phpjs.git",
+    "phpjs": "https://github.com/taeram/phpjs.git",
     "bootstrap": "3.*",
     "font-awesome": "4.*",
     "history.js": "1.8.*",

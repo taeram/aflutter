@@ -5,6 +5,7 @@ from flask.ext.compress import Compress
 from flask.ext.login import current_user
 import subprocess
 import re
+import sys
 from react import jsx
 import locale
 
@@ -13,6 +14,11 @@ locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 
 app = Flask(__name__)
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
+
+import logging
+log_handler = logging.StreamHandler(sys.stdout)
+log_handler.setLevel(logging.WARNING)
+app.logger.addHandler(log_handler)
 
 # Plugins
 Compress(app)
@@ -55,7 +61,6 @@ if app.debug:
         """ Parse the JSX on the fly if we're in debug mode """
         filename = re.sub(r"\-[0-9]+", "", filename)
         jsx_path = os.path.join(app.root_path, 'static/js/%sx' % filename)
-        print jsx_path
         try:
             js = jsx.transform(jsx_path)
             return app.response_class(response=js, mimetype='text/javascript')

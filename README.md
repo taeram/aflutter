@@ -44,13 +44,6 @@ Local development setup:
     git clone https://github.com/taeram/aflutter.git
     cd ./aflutter
 
-    # Setup and activate virtualenv
-    virtualenv .venv
-    source ./.venv/bin/activate
-
-    # Install the pip requirements
-    pip install -r requirements.txt
-
     # Create the development database (SQLite by default)
     python manage.py database migrate upgrade
     python manage.py database setup
