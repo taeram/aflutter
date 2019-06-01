@@ -18,6 +18,7 @@ class Config(object):
     SITE_NAME = getenv('SITE_NAME', 'Aflutter')
     SQLALCHEMY_DATABASE_URI = getenv('DATABASE_URL').replace('mysql2:', 'mysql:')
     SQLALCHEMY_ECHO = getenv('SQLALCHEMY_ECHO', False)
+    SQLALCHEMY_POOL_RECYCLE = 60
     FILES_PROTECTED = getenv('FILES_PROTECTED', False)
 
 
